@@ -1,0 +1,59 @@
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_HOST=${DATABASE_HOST}
+      - POSTGRES_PORT=${DATABASE_PORT}
+
+    container_name: db_${DATABASE_NAME}
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - '5432:5432'
+    networks:
+      - netserverless
+
+  app:
+    build:
+      context: .
+      dockerfile: dockerfile
+    container_name: serverless_container_${DATABASE_NAME}
+    ports:
+      - '3000:3000'
+    depends_on:
+      - db
+    volumes:
+      - ./src:/app/src
+      - .env.${STAGE}:/app/.env
+
+    environment:
+      - STAGE=${STAGE}
+
+    develop:
+      watch:
+        - path: src
+          action: rebuild
+    networks:
+      - netserverless
+
+  pgadmin:
+    image: dpage/pgadmin4
+    restart: always
+    container_name: pgadmin4_${DATABASE_NAME}
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${DATABASE_EMAIL}
+      - PGADMIN_DEFAULT_PASSWORD=${DATABASE_EMAIL_PASSWORD}
+    ports:
+      - '5050:80'
+    depends_on:
+      - db
+    networks:
+      - netserverless
+
+networks:
+  netserverless:
+    driver: bridge

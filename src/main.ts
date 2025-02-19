@@ -2,11 +2,20 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { Callback, Context, Handler } from 'aws-lambda';
 import { configure } from '@codegenie/serverless-express';
+import { ValidationPipe } from '@nestjs/common';
 
 let server: Handler; //Lambda server instance
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  app.useGlobalPipes(
+    new ValidationPipe({
+      transform: true, // Ensures proper transformation of types, e.g., string to Date
+      whitelist: true, // Removes any extra properties from the request body that are not part of the DTO
+    }),
+  );
+
   await app.init(); // Initialize the NestJS application
 
   // Get the underlying Express app instance from the NestJS HTTP adapter

@@ -1,0 +1,22 @@
+service: tech-test
+
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: dev
+  timeout: 30
+
+#custom:
+  #serverless-offline:
+    #host: 0.0.0.0
+
+functions:
+  main:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: any
+          path: /{any+}

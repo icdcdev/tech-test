@@ -1,0 +1,71 @@
+{
+  "C:\\Users\\aleja\\Desktop\\tech-test\\serverless.yml": {
+    "versionFramework": "4.6.3",
+    "servicePath": "C:\\Users\\aleja\\Desktop\\tech-test\\serverless.yml",
+    "serviceConfigFileName": "serverless.yml",
+    "service": {
+      "service": "tech-test",
+      "plugns": [
+        "serverless-offline"
+      ],
+      "provider": {
+        "name": "aws",
+        "runtime": "nodejs18.x",
+        "stage": "dev",
+        "timeout": 30,
+        "region": "us-east-1",
+        "versionFunctions": true
+      },
+      "functions": {
+        "main": {
+          "handler": "dist/main.handler",
+          "events": [
+            {
+              "http": {
+                "method": "any",
+                "path": "/{any+}"
+              }
+            }
+          ]
+        }
+      }
+    },
+    "provider": {
+      "name": "aws",
+      "runtime": "nodejs18.x",
+      "stage": "dev",
+      "timeout": 30,
+      "region": "us-east-1",
+      "versionFunctions": true
+    },
+    "dashboard": {
+      "isEnabledForService": false,
+      "requiredAuthentication": false,
+      "orgFeaturesInUse": null,
+      "orgObservabilityIntegrations": null,
+      "serviceAppId": null,
+      "serviceProvider": null,
+      "instanceParameters": null
+    },
+    "error": {
+      "message": "This command was deprecated in v4. You can now list and search for plugins at https://www.serverless.com/plugins",
+      "code": "UNRECOGNIZED_CLI_COMMAND"
+    },
+    "serviceRawFile": "service: tech-test\r\n\r\nplugns:\r\n  - serverless-offline\r\n\r\nprovider:\r\n  name: aws\r\n  runtime: nodejs18.x\r\n  stage: dev\r\n  timeout: 30\r\n\r\n#custom:\r\n  #serverless-offline:\r\n    #host: 0.0.0.0\r\n\r\nfunctions:\r\n  main:\r\n    handler: dist/main.handler\r\n    events:\r\n      - http:\r\n          method: any\r\n          path: /{any+}\r\n",
+    "command": [
+      "plugin",
+      "list"
+    ],
+    "options": {},
+    "orgId": "42aad7fa-c983-4bce-8e1e-099da56349fd",
+    "orgName": "alexgaga",
+    "userId": "bQ1kgSKRKYlQfJwkVL",
+    "userName": "alexgaga",
+    "serviceProviderAwsAccountId": "764529171758",
+    "serviceProviderAwsCfStackId": null,
+    "serviceProviderAwsCfStackCreated": null,
+    "serviceProviderAwsCfStackUpdated": null,
+    "serviceProviderAwsCfStackStatus": null,
+    "serviceProviderAwsCfStackOutputs": null
+  }
+}

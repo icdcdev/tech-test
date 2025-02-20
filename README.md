@@ -1,85 +1,55 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Technical test project
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This project is designed to be run with Docker, Yarn and Serverless Offline. Below are the steps required to successfully run the project in your development environment.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Previous Requirements
 
-## Description
+Before you begin, make sure you have the following tools installed on your machine:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- **[Yarn](https://yarnpkg.com/)**: A package manager for JavaScript.
+- **[Docker](https://www.docker.com/)**: Software that allows you to run applications in containers.
+- **[Serverless Framework](https://www.serverless.com/)**: A framework for developing serverless applications.
+- **[Serverless Offline](https://www.npmjs.com/package/serverless-offline)**: A plugin for the Serverless Framework that allows you to simulate the execution of AWS Lambda and API Gateway locally.
 
-## Project setup
+If you don't have these tools, you can install Yarn from its official site, Docker from its download page, and Serverless Framework and Serverless Offline using the following commands:
 
-```bash
-$ yarn install
+```tap
+npm -g serverless installation
+npm install serverless offline --save-dev
 ```
 
-## Compile and run the project
+Next you must install the dependencies with
+`thread installation`
 
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
+Once installed, you must generate the project in docker with the command, whichever case you choose: (The environment variables are not found in the repository)
+```
+docker compose --env-file .env.dev up -w   # Para desarrollo
+docker compose --env-file .env.qa up -w  # Para testing
 ```
 
-## Run tests
+The API documentation will be available at
+`/documentation`
 
-```bash
-# unit tests
-$ yarn run test
+# Setting up pgAdmin and PostgreSQL Server
 
-# e2e tests
-$ yarn run test:e2e
+To connect to the PostgreSQL server from PgAdmin, we need to create a server object in PgAdmin with the details of the PostgreSQL server.
 
-# test coverage
-$ yarn run test:cov
-```
+## Steps to Create a Server in PgAdmin
 
-## Resources
+1. Open PgAdmin in the web browser by visiting [http://localhost:5050](http://localhost:5050) (assuming we're using the default configuration in the `docker-compose.yml` file).
+2. Log in using your email and password in the `docker-compose.yml` file for the pgadmin service.
+3. In the left-hand sidebar, click **Servers** to expand the Servers menu.
+4. Right-click on **Servers** and select **Register → Server**.
+5. In the **General** tab of the **Create - Server** dialog, give the server a name of your choice.
+6. In the **Connection** tab, fill in the following details:
+   - **Host name/address**: `db`
+   - **Port**: `5432`
+   - **Maintenance database**: `postgres`
+   - **Username**: `postgres`
+   - **Password**: `postgres`
+7. Click **Save** to save the server configuration.
 
-Check out a few resources that may come in handy when working with NestJS:
+> **Note**: Since the PostgreSQL server is running in a Docker container, the hostname/address should be the name of the Docker service for the database container as defined in the `docker-compose.yml` file. By default, the name of the service becomes the hostname/address of the container within the Docker network.
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
+After completing these steps, you should see the server you created in the left-hand sidebar of PgAdmin. You can expand the server to see the databases and other objects within it.
 
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).

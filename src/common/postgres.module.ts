@@ -5,6 +5,7 @@ import { DataSource, DataSourceOptions } from 'typeorm';
 import { ConfigModule } from './config.module';
 import { Client } from 'src/clients/entities/client.entity';
 import { Vehicle } from 'src/vehicles/enitites/vehicle.entity';
+import { Appointment } from 'src/appointments/entities/appointment.entity';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import { Vehicle } from 'src/vehicles/enitites/vehicle.entity';
           username: configService.get<string>('DATABASE_USER'),
           password: configService.get<string>('DATABASE_PASSWORD'),
           database: configService.get<string>('DATABASE_NAME'),
-          entities: [Client, Vehicle],
+          entities: [Client, Vehicle, Appointment],
           synchronize: configService.get<boolean>('SYNCHRONIZE', false),
         };
 

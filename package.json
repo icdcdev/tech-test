@@ -30,8 +30,13 @@
     "@vendia/serverless-express": "^4.12.6",
     "aws-lambda": "^1.0.7",
     "class-validator": "^0.14.1",
+    "class-transformer": "^0.5.1",
+    "@nestjs/swagger": "^11.0.3",
     "reflect-metadata": "^0.2.0",
-    "rxjs": "^7.8.1"
+    "cookie-parser": "^1.4.7",
+    "rxjs": "^7.8.1",
+    "swagger-ui-express": "^5.0.1",
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

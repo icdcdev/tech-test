@@ -23,6 +23,7 @@ import { Client } from 'src/clients/entities/client.entity';
           entities: [Client],
           synchronize: configService.get<boolean>('SYNCHRONIZE', false),
         };
+        console.log("🚀 ~ dbConfig:", dbConfig)
 
         return dbConfig;
       },

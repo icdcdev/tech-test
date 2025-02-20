@@ -1,10 +1,9 @@
 import { HttpStatus, Injectable } from '@nestjs/common';
-import { CreateClientDto } from './dto/create-client.dto';
-import { UpdateClientDto } from './dto/update-client.dto';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Client } from './entities/client.entity';
-import { Repository } from 'typeorm';
 import { ApiResponseDto } from 'src/helpers/api_response.helper';
+import { Repository } from 'typeorm';
+import { CreateClientDto } from './dto/create-client.dto';
+import { Client } from './entities/client.entity';
 
 @Injectable()
 export class ClientsService {
@@ -15,8 +14,19 @@ export class ClientsService {
   async create(
     createClientDto: CreateClientDto,
   ): Promise<ApiResponseDto<Client>> {
+    const existingClient = await this.clientsRepository.findOne({
+      where: { phone: createClientDto.phone },
+    });
+
+    if (existingClient) {
+      return {
+        statusCode: HttpStatus.CONFLICT,
+        message: 'Client with this phone number already exists',
+        data: existingClient,
+      };
+    }
     const client = await this.clientsRepository.save(createClientDto);
-    
+
     if (client) {
       return {
         statusCode: HttpStatus.OK,
@@ -31,5 +41,4 @@ export class ClientsService {
       data: null,
     };
   }
-
 }

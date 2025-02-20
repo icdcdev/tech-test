@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Appointment } from 'src/appointments/entities/appointment.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -51,4 +53,7 @@ export class Client {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => Appointment, (appointment) => appointment.client)
+  appointments: Appointment[];
 }

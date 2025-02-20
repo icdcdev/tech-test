@@ -41,4 +41,10 @@ export class VehiclesService {
       data: null,
     };
   }
+
+  async findOne(vehicleId: number) {
+    return await this.vehiclesRepository.findOne({
+      where: { id: vehicleId },
+    });
+  }
 }

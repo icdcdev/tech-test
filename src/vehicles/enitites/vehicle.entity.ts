@@ -1,8 +1,10 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { Appointment } from 'src/appointments/entities/appointment.entity';
 import {
   Column,
   CreateDateColumn,
   Entity,
+  ManyToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
@@ -50,4 +52,7 @@ export class Vehicle {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => Appointment, (appointment) => appointment.vehicle)
+  appointment: Appointment;
 }

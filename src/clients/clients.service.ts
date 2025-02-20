@@ -41,4 +41,10 @@ export class ClientsService {
       data: null,
     };
   }
+
+  async findOne(clientId: number) {
+    return await this.clientsRepository.findOne({
+      where: { id: clientId },
+    });
+  }
 }

@@ -36,7 +36,7 @@ export class VehiclesController {
     responseObject: {
       status: HttpStatus.OK,
       description:
-        'You can only create a vehicle that does not leave, this was valid with their VIN number ',
+        'You can only register a vehicle that has not been registered before',
       type: ApiResponseDtoCreateVehicle,
     },
     body: {

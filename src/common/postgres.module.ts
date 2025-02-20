@@ -4,6 +4,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DataSource, DataSourceOptions } from 'typeorm';
 import { ConfigModule } from './config.module';
 import { Client } from 'src/clients/entities/client.entity';
+import { Vehicle } from 'src/vehicles/enitites/vehicle.entity';
 
 @Module({
   imports: [
@@ -20,10 +21,9 @@ import { Client } from 'src/clients/entities/client.entity';
           username: configService.get<string>('DATABASE_USER'),
           password: configService.get<string>('DATABASE_PASSWORD'),
           database: configService.get<string>('DATABASE_NAME'),
-          entities: [Client],
+          entities: [Client, Vehicle],
           synchronize: configService.get<boolean>('SYNCHRONIZE', false),
         };
-        console.log("🚀 ~ dbConfig:", dbConfig)
 
         return dbConfig;
       },
